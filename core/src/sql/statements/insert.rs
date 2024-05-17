@@ -136,7 +136,7 @@ fn iterable(id: Thing, v: Value, relation: bool) -> Result<Iterable, Error> {
 			let r#in = match v.pick(&*IN) {
 				Value::Thing(v) => v,
 				v => {
-					return Err(Error::RelateStatement {
+					return Err(Error::InsertStatementIn {
 						value: v.to_string(),
 					})
 				}
@@ -144,7 +144,7 @@ fn iterable(id: Thing, v: Value, relation: bool) -> Result<Iterable, Error> {
 			let out = match v.pick(&*OUT) {
 				Value::Thing(v) => v,
 				v => {
-					return Err(Error::RelateStatement {
+					return Err(Error::InsertStatementOut {
 						value: v.to_string(),
 					})
 				}
