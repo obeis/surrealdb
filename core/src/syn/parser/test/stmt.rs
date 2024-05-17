@@ -964,6 +964,7 @@ fn parse_insert() {
 			output: Some(Output::After),
 			timeout: None,
 			parallel: false,
+			relation: false,
 		}),
 	)
 }

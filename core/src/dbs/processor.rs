@@ -156,8 +156,8 @@ impl<'a> Processor<'a> {
 				Iterable::Mergeable(v, o) => {
 					self.process_mergeable(stk, ctx, opt, txn, stm, v, o).await?
 				}
-				Iterable::Relatable(f, v, w) => {
-					self.process_relatable(stk, ctx, opt, txn, stm, f, v, w).await?
+				Iterable::Relatable(f, v, w, o) => {
+					self.process_relatable(stk, ctx, opt, txn, stm, f, v, w, o).await?
 				}
 			}
 		}
@@ -284,6 +284,7 @@ impl<'a> Processor<'a> {
 		f: Thing,
 		v: Thing,
 		w: Thing,
+		o: Option<Value>,
 	) -> Result<(), Error> {
 		// Check that the table exists
 		txn.lock().await.check_ns_db_tb(opt.ns(), opt.db(), &v.tb, opt.strict).await?;
@@ -296,7 +297,7 @@ impl<'a> Processor<'a> {
 			None => Value::None,
 		};
 		// Create a new operable value
-		let val = Operable::Relatable(f, x, w);
+		let val = Operable::Relatable(f, x, w, o);
 		// Process the document record
 		let pro = Processed {
 			ir: None,

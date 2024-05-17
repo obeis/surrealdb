@@ -57,6 +57,8 @@ impl<'a> Document<'a> {
 		self.relation(ctx, opt, txn, stm).await?;
 		// Merge record data
 		self.merge(stk, ctx, opt, txn, stm).await?;
+		// Store record edges
+		self.edges(ctx, opt, txn, stm).await?;
 		// Merge fields data
 		self.field(stk, ctx, opt, txn, stm).await?;
 		// Reset fields data
@@ -93,6 +95,8 @@ impl<'a> Document<'a> {
 		self.allow(stk, ctx, opt, txn, stm).await?;
 		// Alter record data
 		self.alter(stk, ctx, opt, txn, stm).await?;
+		// Store record edges
+		self.edges(ctx, opt, txn, stm).await?;
 		// Merge fields data
 		self.field(stk, ctx, opt, txn, stm).await?;
 		// Reset fields data
