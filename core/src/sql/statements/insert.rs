@@ -57,7 +57,7 @@ impl InsertStatement {
 						value: v.to_string(),
 					})
 				}
-			}
+			},
 		};
 
 		match &self.data {
@@ -169,13 +169,16 @@ fn gen_id(v: &Value, into: &Option<Table>) -> Result<Thing, Error> {
 	match into {
 		Some(into) => v.rid().generate(&into, true),
 		None => match v.rid() {
-			Value::Thing(Thing { id: Id::Generate(_), .. }) => Err(Error::InsertStatementId {
+			Value::Thing(Thing {
+				id: Id::Generate(_),
+				..
+			}) => Err(Error::InsertStatementId {
 				value: v.to_string(),
 			}),
 			Value::Thing(v) => Ok(v),
 			_ => Err(Error::InsertStatementId {
 				value: v.to_string(),
-			})
-		}
+			}),
+		},
 	}
 }
